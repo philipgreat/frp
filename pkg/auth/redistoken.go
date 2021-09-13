@@ -15,12 +15,36 @@
 package auth
 
 import (
+	"context"
 	"fmt"
 	"time"
 
 	"github.com/fatedier/frp/pkg/msg"
 	"github.com/fatedier/frp/pkg/util/util"
+	"github.com/go-redis/redis/v8"
 )
+
+var ctx = context.Background()
+
+func verifyFromRedis(clientToken string) (err error) {
+	rdb := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "", // no password set
+		DB:       0,  // use default DB
+	})
+
+	err := rdb.Set(ctx, clientToken, 111, 0).Err()
+	if err != nil {
+		panic(err)
+	}
+
+	val, err := rdb.Get(ctx, clientToken).Result()
+	if err != nil {
+		panic(err)
+	}
+
+	return null
+}
 
 /*
 type TokenConfig struct {
