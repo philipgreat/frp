@@ -37,4 +37,5 @@ require (
 	gopkg.in/square/go-jose.v2 v2.4.1 // indirect
 	k8s.io/apimachinery v0.21.2
 	k8s.io/client-go v0.21.2
+	github.com/go-redis/redis/v8 v8.11.3
 )
