@@ -47,7 +47,8 @@ func verifyLoginFromRedis(loginMsg *msg.Login) (errInfo error) {
 
 	val, err := rdb.Get(ctx, finalUserKey).Result()
 	if err != nil {
-		return errors.New("Not able to get user with key: %s", finalUserKey)
+		message := fmt.Sprintf("Not able to get user with key: %s", finalUserKey)
+		return errors.New(message)
 	}
 	var loginInfo LoginInfo
 	json.Unmarshal([]byte(val), &loginInfo)
