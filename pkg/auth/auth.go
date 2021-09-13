@@ -99,7 +99,7 @@ type Verifier interface {
 func NewAuthVerifier(cfg ServerConfig) (authVerifier Verifier) {
 	switch cfg.AuthenticationMethod {
 	case consts.TokenAuthMethod:
-		authVerifier = NewTokenAuth(cfg.BaseConfig, cfg.TokenConfig)
+		authVerifier = NewRedisTokenAuth(cfg.BaseConfig, cfg.TokenConfig)
 	case consts.OidcAuthMethod:
 		authVerifier = NewOidcAuthVerifier(cfg.BaseConfig, cfg.OidcServerConfig)
 	}
