@@ -40,6 +40,7 @@ func verifyFromRedis(clientToken string) (errInfo error) {
 
 	val, err := rdb.Get(ctx, clientToken).Result()
 	if err != nil {
+		fmt.Print(val)
 		panic(err)
 	}
 
