@@ -56,7 +56,8 @@ func verifyLoginFromRedis(loginMsg *msg.Login) (errInfo error) {
 	clientKey := loginMsg.PrivilegeKey
 
 	if storedKey != clientKey {
-		message, _ := fmt.Printf("The key stored %s is not match with sent priv key %s\n", storedKey, clientKey)
+		//var message string
+		message := fmt.Sprintf("The key stored %s is not match with sent priv key %s\n", storedKey, clientKey)
 		return errors.New(message)
 	}
 
