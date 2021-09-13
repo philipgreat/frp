@@ -100,6 +100,7 @@ func (auth *RedisTokenAuthSetterVerifier) SetNewWorkConn(newWorkConnMsg *msg.New
 
 func (auth *RedisTokenAuthSetterVerifier) VerifyLogin(loginMsg *msg.Login) error {
 
+	fmt.Println("Tryint to get metas")
 	for key, value := range loginMsg.Metas {
 		fmt.Printf("%s = %s\n", key, value)
 
