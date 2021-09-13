@@ -43,7 +43,7 @@ func verifyFromRedis(clientToken string) (err error) {
 		panic(err)
 	}
 
-	return null
+	return nil
 }
 
 /*
