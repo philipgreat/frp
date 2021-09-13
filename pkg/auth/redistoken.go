@@ -21,6 +21,7 @@ import (
 
 	"github.com/fatedier/frp/pkg/msg"
 	"github.com/fatedier/frp/pkg/util/util"
+	"github.com/go-redis/redis/v8"
 )
 
 var ctx = context.Background()
