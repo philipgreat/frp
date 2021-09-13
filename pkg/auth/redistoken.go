@@ -25,7 +25,6 @@ import (
 
 var ctx = context.Background()
 
-/*
 func verifyFromRedis(clientToken string) (err error) {
 	rdb := redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
@@ -45,7 +44,7 @@ func verifyFromRedis(clientToken string) (err error) {
 
 	return nil
 }
-*/
+
 /*
 type TokenConfig struct {
 	// Token specifies the authorization token used to create keys to be sent
