@@ -100,7 +100,7 @@ func (auth *RedisTokenAuthSetterVerifier) SetNewWorkConn(newWorkConnMsg *msg.New
 
 func (auth *RedisTokenAuthSetterVerifier) VerifyLogin(loginMsg *msg.Login) error {
 	if util.GetAuthKey(auth.token, loginMsg.Timestamp) != loginMsg.PrivilegeKey {
-		return fmt.Errorf("token in login doesn't match token from configuration by redis")
+		return fmt.Errorf("token in login doesn't match token from configuration by redis" + loginMsg.User)
 	}
 	return nil
 }
