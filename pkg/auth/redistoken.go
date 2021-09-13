@@ -25,7 +25,7 @@ import (
 
 var ctx = context.Background()
 
-func verifyFromRedis(clientToken string) (err error) {
+func verifyFromRedis(clientToken string) (errInfo error) {
 	rdb := redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
 		Password: "", // no password set
