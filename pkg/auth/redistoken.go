@@ -122,16 +122,11 @@ func (auth *RedisTokenAuthSetterVerifier) VerifyLogin(loginMsg *msg.Login) error
 		fmt.Printf("%s = %s\n", key, value)
 
 	}
-	err :=verifyLoginFromRedis(loginMsg)
-	if(err !=nil){
+	err := verifyLoginFromRedis(loginMsg)
+	if err != nil {
 		return fmt.Errorf(err.Error())
 	}
-	if(verifyLoginFromRedis())
-	if util.GetAuthKey(auth.token, loginMsg.Timestamp) != loginMsg.PrivilegeKey {
-		return fmt.Errorf(
-			"token in login doesn't match token from configuration by redis ====>user: " +
-				loginMsg.User + " key:" + loginMsg.PrivilegeKey)
-	}
+
 	return nil
 }
 
