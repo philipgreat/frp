@@ -108,6 +108,12 @@ func (auth *RedisTokenAuthSetterVerifier) SetPing(pingMsg *msg.Ping) error {
 }
 
 func (auth *RedisTokenAuthSetterVerifier) SetNewWorkConn(newWorkConnMsg *msg.NewWorkConn) error {
+
+	for key, value := range newWorkConnMsg.Metas {
+		fmt.Printf("%s = %s\n", key, value)
+
+	}
+
 	if !auth.AuthenticateNewWorkConns {
 		return nil
 	}
