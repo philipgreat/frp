@@ -258,7 +258,7 @@ func (ctl *Control) reader() {
 				xl.Debug("read from control connection EOF")
 				return
 			}
-			xl.Warn("read error1: %v", err)
+			xl.Warn("read error111: %v", err)
 			ctl.conn.Close()
 			return
 		}
