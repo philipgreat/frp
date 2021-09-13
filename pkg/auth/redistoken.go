@@ -76,7 +76,7 @@ func (auth *RedisTokenAuthSetterVerifier) SetNewWorkConn(newWorkConnMsg *msg.New
 
 func (auth *RedisTokenAuthSetterVerifier) VerifyLogin(loginMsg *msg.Login) error {
 	if util.GetAuthKey(auth.token, loginMsg.Timestamp) != loginMsg.PrivilegeKey {
-		return fmt.Errorf("token in login doesn't match token from configuration")
+		return fmt.Errorf("token in login doesn't match token from configuration by redis")
 	}
 	return nil
 }
@@ -87,7 +87,7 @@ func (auth *RedisTokenAuthSetterVerifier) VerifyPing(pingMsg *msg.Ping) error {
 	}
 
 	if util.GetAuthKey(auth.token, pingMsg.Timestamp) != pingMsg.PrivilegeKey {
-		return fmt.Errorf("token in heartbeat doesn't match token from configuration")
+		return fmt.Errorf("token in heartbeat doesn't match token from configuration by redis")
 	}
 	return nil
 }
@@ -98,7 +98,7 @@ func (auth *RedisTokenAuthSetterVerifier) VerifyNewWorkConn(newWorkConnMsg *msg.
 	}
 
 	if util.GetAuthKey(auth.token, newWorkConnMsg.Timestamp) != newWorkConnMsg.PrivilegeKey {
-		return fmt.Errorf("token in NewWorkConn doesn't match token from configuration")
+		return fmt.Errorf("token in NewWorkConn doesn't match token from configuration by redis")
 	}
 	return nil
 }
