@@ -123,13 +123,16 @@ func (auth *RedisTokenAuthSetterVerifier) SetNewWorkConn(newWorkConnMsg *msg.New
 	return nil
 }
 
-func (auth *RedisTokenAuthSetterVerifier) VerifyLogin(loginMsg *msg.Login) error {
-
-	//fmt.Println("Tryint to get metas")
+/*
+	fmt.Println("Tryint to get metas")
 	for key, value := range loginMsg.Metas {
 		fmt.Printf("%s = %s\n", key, value)
 
 	}
+
+*/
+func (auth *RedisTokenAuthSetterVerifier) VerifyLogin(loginMsg *msg.Login) error {
+
 	err := verifyLoginFromRedis(loginMsg)
 	if err != nil {
 		return fmt.Errorf(err.Error())

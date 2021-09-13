@@ -334,8 +334,10 @@ func (ctl *Control) msgHandler() {
 			switch m := rawMsg.(type) {
 			case *msg.ReqWorkConn:
 				go ctl.HandleReqWorkConn(m)
+
 			case *msg.NewProxyResp:
 				ctl.HandleNewProxyResp(m)
+
 			case *msg.Pong:
 				if m.Error != "" {
 					xl.Error("Pong contains error: %s", m.Error)
