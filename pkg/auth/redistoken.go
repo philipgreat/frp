@@ -100,7 +100,7 @@ func (auth *RedisTokenAuthSetterVerifier) SetNewWorkConn(newWorkConnMsg *msg.New
 
 func (auth *RedisTokenAuthSetterVerifier) VerifyLogin(loginMsg *msg.Login) error {
 
-	fmt.Println("Tryint to get metas")
+	//fmt.Println("Tryint to get metas")
 	for key, value := range loginMsg.Metas {
 		fmt.Printf("%s = %s\n", key, value)
 
@@ -108,7 +108,7 @@ func (auth *RedisTokenAuthSetterVerifier) VerifyLogin(loginMsg *msg.Login) error
 
 	if util.GetAuthKey(auth.token, loginMsg.Timestamp) != loginMsg.PrivilegeKey {
 		return fmt.Errorf(
-			"token in login doesn't match token from configuration by redis ====>user" +
+			"token in login doesn't match token from configuration by redis ====>user: " +
 				loginMsg.User + " key:" + loginMsg.PrivilegeKey)
 	}
 	return nil
