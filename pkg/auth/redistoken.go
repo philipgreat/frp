@@ -16,6 +16,8 @@ package auth
 
 import (
 	"context"
+	"encoding/json"
+	"errors"
 	"fmt"
 	"time"
 
@@ -26,22 +28,36 @@ import (
 
 var ctx = context.Background()
 
-func verifyFromRedis(clientToken string) (errInfo error) {
+type LoginInfo struct {
+	UserToken string `json:"userToken"`
+}
+
+func verifyLoginFromRedis(loginMsg *msg.Login) (errInfo error) {
+
+	if len(loginMsg.User) == 0 {
+		return errors.New("user are empty please add user=<useryour> to your frpc.ini in section [common]")
+	}
+
 	rdb := redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})
+	finalUserKey := fmt.Sprintf("%s:%s", "FRPC", loginMsg.User)
 
-	err := rdb.Set(ctx, clientToken, 111, 0).Err()
+	val, err := rdb.Get(ctx, finalUserKey).Result()
 	if err != nil {
-		panic(err)
+		return errors.New("Not able to get user with key: %s"+finalUserKey, val)
 	}
+	var loginInfo LoginInfo
+	json.Unmarshal([]byte(val), &loginInfo)
 
-	val, err := rdb.Get(ctx, clientToken).Result()
-	if err != nil {
-		fmt.Print(val)
-		panic(err)
+	storedKey := util.GetAuthKey(loginInfo.UserToken, loginMsg.Timestamp)
+	clientKey := loginMsg.PrivilegeKey
+
+	if storedKey != clientKey {
+		message, _ := fmt.Printf("The key stored %s is not match with sent priv key %s\n", storedKey, clientKey)
+		return errors.New(message)
 	}
 
 	return nil
@@ -106,7 +122,11 @@ func (auth *RedisTokenAuthSetterVerifier) VerifyLogin(loginMsg *msg.Login) error
 		fmt.Printf("%s = %s\n", key, value)
 
 	}
-
+	err :=verifyLoginFromRedis(loginMsg)
+	if(err !=nil){
+		return fmt.Errorf(err.Error())
+	}
+	if(verifyLoginFromRedis())
 	if util.GetAuthKey(auth.token, loginMsg.Timestamp) != loginMsg.PrivilegeKey {
 		return fmt.Errorf(
 			"token in login doesn't match token from configuration by redis ====>user: " +
