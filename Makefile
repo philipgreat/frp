@@ -2,7 +2,7 @@ export PATH := $(GOPATH)/bin:$(PATH)
 export GO111MODULE=on
 LDFLAGS := -s -w
 
-all: fmt build
+all:  build
 
 build: frps frpc
 
